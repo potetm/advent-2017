@@ -42,6 +42,11 @@
        (partition 16
                   hash)))
 
+(defn knot-hash [s]
+  (sparse->dense (:hash (reduce step
+                                (state 256)
+                                (p2-parse s)))))
+
 (defn dense->str [hash]
   (apply str (map (partial format "%02x")
                   hash)))
@@ -53,9 +58,7 @@
                                 (p1-parse s))))))
 
 (defn p2 [s]
-  (dense->str (sparse->dense (:hash (reduce step
-                                            (state 256)
-                                            (p2-parse s))))))
+  (dense->str (knot-hash s)))
 
 (comment (reductions step
                      (state 5)
