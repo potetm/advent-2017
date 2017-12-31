@@ -67,17 +67,19 @@
                  (parse in))))
 
 (defn p2 [in]
-  (let [instrs (parse in)]
+  (let [instrs (parse in)
+        init (game 16)
+        cyc (cons init
+                  (take-while (complement #{init})
+                              (next (iterate (fn [g]
+                                               (reduce step
+                                                       g
+                                                       instrs))
+                                             init))))]
     (apply str
-           (get (into []
-                      (take 36 ;; 36 game states in a cycle for my input
-                            (iterate (fn [g]
-                                       (reduce step
-                                               g
-                                               instrs))
-                                     (game 16))))
+           (nth cyc
                 (mod 1000000000
-                     36)))))
+                     (count cyc))))))
 
 (comment
   (def g (game 5))
