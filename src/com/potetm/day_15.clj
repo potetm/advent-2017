@@ -1,29 +1,31 @@
 (ns com.potetm.day-15)
 
-(def a-fact 16807)
-(def b-fact 48271)
-(def a-crit-div 4)
-(def b-crit-div 8)
-(def divisor 2147483647)
+(def ^:const a-fact 16807)
+(def ^:const b-fact 48271)
+(def ^:const a-crit-div 4)
+(def ^:const b-crit-div 8)
+(def ^:const divisor 2147483647)
 
 (defn gen1 [factor prev]
-  (rem (* factor prev)
-       divisor))
+  (rem (* (long factor)
+          (long prev))
+       (long divisor)))
 
 (defn gen2 [factor crit-div prev]
-  {:pre [(and (pos? crit-div)
-              (zero? (bit-and crit-div
-                              (dec crit-div))))]}
-  (let [mask (dec crit-div)]
+  {:pre [(and (pos? (long crit-div))
+              (zero? (bit-and (long crit-div)
+                              (dec (long crit-div)))))]}
+  (let [mask (dec (long crit-div))]
     (loop [g (gen1 factor prev)]
-      (if (zero? (bit-and g mask))
+      (if (zero? (bit-and (long g)
+                          mask))
         g
         (recur (gen1 factor g))))))
 
 (defn judge [a b]
-  (== (bit-shift-left a
+  (== (bit-shift-left (long a)
                       -16)
-      (bit-shift-left b
+      (bit-shift-left (long b)
                       -16)))
 
 (defn p1 [a b]
