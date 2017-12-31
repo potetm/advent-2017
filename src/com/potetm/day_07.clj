@@ -1,4 +1,4 @@
-(ns com.potetm.day-7
+(ns com.potetm.day-07
   (:require [clojure.string :as str]))
 
 (defn parse [s]

@@ -1,4 +1,4 @@
-(ns com.potetm.day-5
+(ns com.potetm.day-05
   (:require [clojure.string :as str]
             [criterium.core :as crit]))
 

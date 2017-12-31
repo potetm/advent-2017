@@ -1,4 +1,4 @@
-(ns com.potetm.day-6
+(ns com.potetm.day-06
   (:require [clojure.string :as str])
   (:import (clojure.lang APersistentVector)))
 

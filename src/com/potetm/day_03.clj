@@ -1,4 +1,4 @@
-(ns com.potetm.day-3
+(ns com.potetm.day-03
   (:require [clojure.string :as str]))
 
 (defn pb [b]
