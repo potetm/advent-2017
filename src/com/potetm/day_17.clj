@@ -1,5 +1,4 @@
-(ns com.potetm.day-17
-  (:import (java.util Arrays)))
+(ns com.potetm.day-17)
 
 (defn spin [step end]
   (reduce (fn [{b :buff
