@@ -7,8 +7,8 @@
    :instrs (mapv #(Long/parseLong %)
                  (str/split-lines s))})
 
-(defn n [{:keys [offset
-                 instrs]}]
+(defn next-state-1 [{:keys [offset
+                            instrs]}]
   (when-let [v (get instrs offset)]
     {:offset (+ offset v)
      :instrs (assoc instrs
@@ -16,11 +16,11 @@
 
 (defn p1 [s]
   (dec (count (take-while some?
-                          (iterate n
+                          (iterate next-state-1
                                    (parse s))))))
 
-(defn n2 [{:keys [offset
-                  instrs]}]
+(defn next-state-2 [{:keys [offset
+                            instrs]}]
   (when-let [v (get instrs offset)]
     {:offset (+ offset v)
      :instrs (assoc instrs
@@ -30,7 +30,7 @@
 
 (defn p2 [s]
   (dec (count (take-while some?
-                          (iterate n2
+                          (iterate next-state-2
                                    (parse s))))))
 
 (defn p2-fast
@@ -44,9 +44,9 @@
                                   (into []
                                         (map #(Long/parseLong %))
                                         (str/split-lines s))))
-        len    (alength instrs)]
+        len (alength instrs)]
     (loop [offset 0
-           c      0]
+           c 0]
       ;; interesting lesson here:
       ;; I originally had (< -1 offset len) here.
       ;; That caused the whole thing to take > 1s.
